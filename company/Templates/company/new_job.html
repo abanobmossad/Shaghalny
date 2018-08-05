@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% load bootstrap3 %}
+<!-- title -->
+{% block title %} New Job{% endblock title %}
+
+<!-- start body -->
+{% block main_container %}
+<div class="signup-text col-lg-10 col-xs-offset-1">
+    <h4>Create New Job</h4>
+</div>
+<div class="col-lg-10 col-xs-offset-1 signup">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {% bootstrap_form form %}
+        <input type="submit" value="Create Job" class="form-control btn green white-text">
+    </form>
+</div>
+{% endblock main_container %}
+<!-- end body -->

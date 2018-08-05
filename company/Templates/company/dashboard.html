@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% load bootstrap3 %}
+<!-- title -->
+{% block title %} {{user.username}} Dashboard {% endblock title %}
+
+<!-- start body -->
+{% block main_container %}
+<div class="panel panel-default">
+    <div class="panel-heading blue">
+        <h3 class="panel-title">My Dashboard</h3>
+    </div>
+    <div class="panel-body">
+        <div class="appliers">
+            
+        </div>
+    </div>
+</div>
+{% endblock main_container %}
+<!-- end body -->

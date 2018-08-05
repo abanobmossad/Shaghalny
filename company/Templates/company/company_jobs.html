@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% load bootstrap3 %}
+<!-- title -->
+{% block title %} My jobs{% endblock title %}
+
+<!-- start body -->
+{% block main_container %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">My Jobs</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="collection">
+            {% for job in company_jobs %}
+
+            <li class="collection-item avatar">
+                <img src="" alt="" class="circle">
+                <span class="title">{{job.title}}</span>
+                <p>{{job.deceptions|safe|truncatechars:'50'}}
+                    <br> {{job.date|date:'j N'}}
+                </p>
+                <a href="#!" class="secondary-content">
+                    <span class="glyphicon glyphicon-book"></span>
+                </a>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+{% endblock main_container %}
+<!-- end body -->
