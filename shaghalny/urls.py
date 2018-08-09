@@ -18,13 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from accounts import views as accounts_views
+from jobs import views as jobs_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', accounts_views.HomePage.as_view(), name='index'),
     # auth section
     path("accounts/", include('accounts.urls'), name="accounts"),
-    path("employer/", include('company.urls'), name="accounts"),
+    path("employer/", include('company.urls'), name="employer"),
+    path("explore/", jobs_views.RelatedJobList.as_view(), name="explore"),
+    path("jobs/", include('jobs.urls'), name="jobs"),
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout,
          name='logout', kwargs={'next_page': '/'}),

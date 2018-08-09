@@ -1,12 +1,35 @@
 {% extends "base.html" %}
 
 <!-- title -->
-{% block title %} Sg {% endblock title %}
+{% block title %} SHAGHLNY {% endblock title %}
 
 <!-- start body -->
-{% block main_container %} 
+{% block main_container %}
+<h3>Explore New Career Opportunities
+    <i class="fa fa-rocket"></i>
+</h3>
+<!-- display related jobs to the userprogile -->
 
+{% for job in related_jobs %}
+<div class="card  col-12 col-sm-10  related-jobs col-lg-12">
+    <div class="card-body user-home">
+        <p class="pull-right time">{{job.date|timesince}}
+            <i class="fa fa-clock-o"></i>
+        </p>
+        <h3>
+            <a href="{% url 'jobs:job_details' slug=job.slug %}">{{job.title|title}}</a>
+        </h3>
+        <b>{{job.company.company_name|title}} - {{job.company.address|title}}</b>
+        <div class="safe-text">{{job.description|safe|truncatechars:'50'}}</div>
+        <hr style="border:0.4px solid #ddd">
 
-{% endblock main_container %}
+        <a href="#" class="btn pull-left user-btns">
+            <i class="fa fa-heart-o"></i> Save </a>
+
+        <a href="#" class="btn pull-left user-btns">
+            <i class="fa fa-share"></i> Share </a>
+    </div>
+</div>
+{% endfor %} {% endblock main_container %}
 
 <!-- end body -->

@@ -4,27 +4,80 @@
 
 <!-- start body -->
 {% block main_container %}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">My Jobs</h3>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">My Jobs</h3>
     </div>
-    <div class="panel-body">
-        <ul class="collection">
-            {% for job in company_jobs %}
+    <div class="card-body ">
+        <div class="row  ">
+            {% if not company_jobs %}
+            <div class=" alert alert-info text-center col-6 offset-3">
+                No jobs yet!
+            </div>
+            {% endif %}
+            <div class="col-4">
+                <div class="list-group  " id="list-tab" role="tablist">
+                    {% for job in company_jobs %}
+                    <!-- make active effect -->
+                    {% if forloop.first %}
+                    <a class="list-group-item list-group-item-action active" id="list-{{job.id}}-list" data-toggle="list" href="#list-{{job.id}}"
+                        role="tab" aria-controls="{{job.id}}">{{job.title|safe|title}}</a>
+                    {% else %}
+                    <a class="list-group-item list-group-item-action" id="list-{{job.id}}-list" data-toggle="list" href="#list-{{job.id}}" role="tab"
+                        aria-controls="{{job.id}}">{{job.title|safe|title}}</a>
+                    {% endif %} {% endfor %}
 
-            <li class="collection-item avatar">
-                <img src="" alt="" class="circle">
-                <span class="title">{{job.title}}</span>
-                <p>{{job.deceptions|safe|truncatechars:'50'}}
-                    <br> {{job.date|date:'j N'}}
-                </p>
-                <a href="#!" class="secondary-content">
-                    <span class="glyphicon glyphicon-book"></span>
-                </a>
-            </li>
-            {% endfor %}
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                    {% for job in company_jobs %}
+                    <!-- make active effect -->
+                    {% if forloop.first %}
+                    <div class="tab-pane myjob-info fade show active" id="list-{{job.id}}" role="tabpanel" aria-labelledby="list-{{job.id}}-list">
+                        <div class="job-control">
+                            <a href="{% url 'company:update_job' pk=job.id %}" class="btn btn-success btn-sm pull-right">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <form action="{% url 'company:delete_job' pk=job.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm pull-right">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="description">
+                            <h5> {{job.title|safe|title}}
+                                <span class="date pull-right">{{job.date|timesince}} ago</span>
+                            </h5>
+                            {{job.description|safe}} {{job.requirements|safe}}
+                        </div>
 
-        </ul>
+                    </div>
+                    {% else %}
+                    <div class="tab-pane myjob-info fade" id="list-{{job.id}}" role="tabpanel" aria-labelledby="list-{{job.id}}-list">
+                        <div class="job-control">
+                            <a href="{% url 'company:update_job' pk=job.id %}" class="btn btn-success btn-sm pull-right">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <form action="{% url 'company:delete_job' pk=job.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm pull-right">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="description">
+                            <h5> {{job.title|safe|title}}
+                                <span class="date pull-right">{{job.date|timesince}} ago</span>
+                            </h5>
+                            {{job.description|safe}} {{job.requirements|safe}}
+                        </div>
+                    </div>
+                    {% endif %} {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock main_container %}

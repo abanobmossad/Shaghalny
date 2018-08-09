@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+<!-- title -->
+{% block title %} {{job.title}}-SHAGHLNY {% endblock title %}
+
+<!-- start body -->
+{% block main_container %}
+<!-- display job info -->
+<div class="row">
+    <!-- right all info  about the job-->
+    <div class="col-7 col-lg-7 col-sm-12 col-md-12">
+        <div class="card ">
+            <div class="card-body">
+                <h3>{{job.title|title}}</h3>
+                <h6>{{job.company}}</h6>
+            </div>
+        </div>
+    </div>
+    <!-- gap -->
+    <div class="col-1"></div>
+    <!-- related jobs and company info -->
+    <div class="row col-4 col-sm-12 col-lg-4 col-md-12">
+        <div class="card col-12">
+            <div class="card-body">
+                <h6>About this company</h6>
+                <p>{{job.company.description}}</p>
+            </div>
+        </div>
+        <div class="card col-12 ">
+            <div class="card-body">
+                <h6>Find related jobs</h6>
+                <h3>{{related.title|title}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_container %}
+
+<!-- end body -->

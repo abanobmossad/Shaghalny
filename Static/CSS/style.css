@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fafafb
+}
+
+/* start navbar */
+
+nav {
+    -webkit-box-shadow: 1px 6px 15px -6px rgba(0, 0, 0, .3);
+    box-shadow: 1px 6px 15px -6px rgba(0, 0, 0, .3);
+}
+
+nav .btn {
+    margin-left: 10px;
+}
+
+.brand-title {
+    color: rgba(3, 59, 212, 0.623);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+.custom-cont {
+    margin-top: 40px;
+}
+
+/* end navbar */
+
+/* start dashboard */
+
+.card {
+    -webkit-box-shadow: 0px 3px 15px -1px rgba(0, 0, 0, .3);
+    box-shadow: 0px 3px 15px -1px rgba(0, 0, 0, .3);
+}
+
+.btn-warning {
+    color: #ffffff
+}
+
+/* end dashboard */
+
+/* start myjobs */
+
+.date {
+    color: #aaaaaa;
+    font-size: 15px;
+}
+
+.job-control>form button {
+    margin-left: 10px;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.list-group-item.active {
+    background-color: #3498db
+}
+
+.myjob-info {
+    overflow: scroll;
+    height: 500px;
+}
+
+/* end myjobs */
+
+/* start user homepage */
+
+.related-jobs {
+    margin-top: 20px
+}
+
+.safe-text {
+    margin-top: 20px;
+}
+
+.user-home>.safe-text * {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    color: #777777;
+    display: inline-block;
+    border: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    quotes: none;
+    font-weight: 400
+}
+
+.user-home h3 {
+    color: #0984e3;
+    font-size: 18px;
+    font-weight: bold;
+}
+.user-home>h3>a:hover{
+    text-decoration: none;
+}
+.user-home> .time{
+    color: #aaaaaa;
+    font-size: 12px;
+}
+.user-home b {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.user-home>.user-btns {
+    color: #030303;
+}
+.user-home>.user-btns:hover{
+    color: #0984e3
+}
+
+/* end user homepage */

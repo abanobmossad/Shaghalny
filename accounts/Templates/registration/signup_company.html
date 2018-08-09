@@ -4,13 +4,13 @@
 
 <!-- start body -->
 {% block main_container %}
-<div class="signup-text col-lg-10 col-xs-offset-1">
+<div class="signup-text col-lg-10 offset-1">
     <h4>Join Shaghalny as a rockstars hunters</h4>
 </div>
-<div class="col-lg-10 col-xs-offset-1 signup">
+<div class="col-lg-10 offset-1 signup">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %} {% bootstrap_form form %}
-        <input type="submit" value="SignUp" class="form-control btn green white-text">
+        <input type="submit" value="SignUp" class="form-control btn-success">
     </form>
 </div>
 {% endblock main_container %}

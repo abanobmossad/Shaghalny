@@ -1,16 +1,40 @@
-{% extends "base.html" %} {% load bootstrap3 %}
+{% extends "base.html" %} {% load bootstrap3 %} {% load static %}
 <!-- title -->
 {% block title %} {{user.username}} Dashboard {% endblock title %}
 
 <!-- start body -->
 {% block main_container %}
-<div class="panel panel-default">
-    <div class="panel-heading blue">
-        <h3 class="panel-title">My Dashboard</h3>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">My Dashboard</h3>
     </div>
-    <div class="panel-body">
-        <div class="appliers">
-            
+    <div class="card-body">
+        <div class="jop-post-control col-4 pull-right">
+            <div class="card-body">
+                <a href="{% url 'company:new_job' %}" class="btn btn-info col-12">Post a New Job</a>
+            </div>
+        </div>
+        <div class="appliers col-8">
+            <ul class="list-group">
+
+                <!-- check if is their any appliers-->
+                {% if appliers %}
+                <li class="list-group-item">
+                    <img src="{% static 'images/user.png' %}" width="20" height="20">
+                    <a href="#"> Cras justo odio </a>
+                    applied to Ux designer
+                    <span class="pull-right ">3 days ago</span>
+                </li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+
+                <!-- if not any ">-->
+                {% else %}
+                <img src="{% static 'images/no-applicants.png' %}"> {% endif %}
+            </ul>
+
         </div>
     </div>
 </div>

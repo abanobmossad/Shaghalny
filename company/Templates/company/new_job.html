@@ -4,13 +4,21 @@
 
 <!-- start body -->
 {% block main_container %}
-<div class="signup-text col-lg-10 col-xs-offset-1">
+<div class="signup-text col-lg-10 offset-1">
+    {% if form.instance.id %}
+    <h4>Update {{ form.instance.title }}</h4>
+    {% else %}
     <h4>Create New Job</h4>
+    {% endif %}
 </div>
-<div class="col-lg-10 col-xs-offset-1 signup">
+<div class="col-lg-10 offset-1 job">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %} {% bootstrap_form form %}
-        <input type="submit" value="Create Job" class="form-control btn green white-text">
+        {% if form.instance.id %}
+        <input type="submit" value="Update Job" class="form-control btn btn-warning">        
+        {% else %}
+        <input type="submit" value="Create Job" class="form-control btn btn-warning">
+        {% endif %}
     </form>
 </div>
 {% endblock main_container %}
