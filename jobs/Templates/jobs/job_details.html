@@ -8,28 +8,107 @@
 <!-- display job info -->
 <div class="row">
     <!-- right all info  about the job-->
-    <div class="col-7 col-lg-7 col-sm-12 col-md-12">
-        <div class="card ">
-            <div class="card-body">
-                <h3>{{job.title|title}}</h3>
-                <h6>{{job.company}}</h6>
+    <div class="col-12 col-lg-7 col-sm-12 col-md-12">
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-body">
+                    <h3>{{job.title|title}}</h3>
+                    <img src="{{job.company.get_image}}" class="pull-right" width="50" height="50" alt="Company_image"></img>
+                    <h6>{{job.company}} - {{job.company.address}}</h6>
+                    <p class="time">Posted {{job.date|timesince}} ago</p>
+                    <hr>
+                    <form action="#" method="POST" class="form-btn">
+                        <input type="submit" value="Apply For Job " class="btn btn-info">
+                    </form>
+                    <p class="pull-right job-application-count">
+                        <span>{{job.applications.count}}</span> Application for
+                        <strong>{{job.open_vacancies}}</strong> open position </p>
+                </div>
             </div>
+            <div class="card col-12">
+                <div class="card-body">
+                    <table class="table table-light">
+                        <tbody>
+                            <tr>
+                                <td>Experience Needed:
+                                    <br>
+                                    <span>{{job.experience_needed}} </span>
+                                </td>
+                                <td>Career Level:
+                                    <br>
+                                    <span>{{job.career_levele|title}}</span>
+                                </td>
+                                <td>Job Type:
+                                    <br>
+                                    <span>{{job.job_type|title}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Salary:
+                                    <br>
+                                    <span>Negotiable</span>
+                                </td>
+                                <td>Education Level:
+                                    <br>
+                                    <span>Bachelor's Degree at least</span>
+                                </td>
+                                <td>Languages:
+                                    <br>
+                                    <span>{{job.languages|title}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vacancies:
+                                    <br>
+                                    <span>{{job.open_vacancies}} open position </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="about-job">
+                        <b> About the job</b>
+                        <br>
+                        <div class="job-desc">{{job.description|safe}}</div>
+                    </div>
+                </div>
+            </div>
+            {% if job.requirements %}
+            <div class="card col-12">
+                <div class="card-body">
+                    <b>Job Requirements</b>
+                    <br>
+                    <div class="job-desc">{{ job.requirements|safe}}</div>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!-- gap -->
     <div class="col-1"></div>
     <!-- related jobs and company info -->
-    <div class="row col-4 col-sm-12 col-lg-4 col-md-12">
-        <div class="card col-12">
-            <div class="card-body">
-                <h6>About this company</h6>
-                <p>{{job.company.description}}</p>
+    <div class="pull-right col-12 col-sm-12 col-lg-4 col-md-12">
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-body">
+                    <b>About this company</b>
+                    <div class="about-company">{{job.company.description|safe}}</div>
+                    <h6>Industry:
+                        <span class="about-company">{{job.company.industry|title}}</span>
+                    </h6>
+
+                </div>
             </div>
-        </div>
-        <div class="card col-12 ">
-            <div class="card-body">
-                <h6>Find related jobs</h6>
-                <h3>{{related.title|title}}</h3>
+            <div class="card col-12 ">
+                <div class="card-body">
+                    <ul class="related-jobs">
+                        <h6>Find related jobs:</h6>
+                        {% for related_job in related %}
+                        <li>
+                            <a href="{% url 'jobs:job_details' slug=related_job.slug %}">{{related_job.title|title}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

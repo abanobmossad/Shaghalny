@@ -7,7 +7,6 @@ urlpatterns = [
     path("<pk>/update-job/", UpdateJob.as_view(), name="update_job"),
     path("<pk>/delete/", delete_job, name="delete_job"),
     path("dashboard/", Dashboard.as_view(), name="dashboard"),
-    path("myjobs/", CompanyJobs.as_view(), name="jobs"),
-
+    path("myjobs/", CompanyJobs.as_view(), name="myjobs"),
     # event
 ]

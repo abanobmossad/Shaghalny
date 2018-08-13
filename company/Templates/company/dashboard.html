@@ -18,17 +18,17 @@
             <ul class="list-group">
 
                 <!-- check if is their any appliers-->
-                {% if appliers %}
+                {% if jobs %}
+                <!-- display all jobs -->
+                {% for job in jobs %}
+                <!-- display job applications -->
+                {% for user in job.applications.all %}
                 <li class="list-group-item">
-                    <img src="{% static 'images/user.png' %}" width="20" height="20">
-                    <a href="#"> Cras justo odio </a>
-                    applied to Ux designer
-                    <span class="pull-right ">3 days ago</span>
+                    <img src="{{user.get_image}}" width="20" height="20">
+                    <a href="#"> {{user}} </a> applied to {{job.title|title}}
+                    <span class="pull-right time">{{job.date|timesince}} ago</span>
                 </li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                {% endfor %} {% endfor %}
 
                 <!-- if not any ">-->
                 {% else %}

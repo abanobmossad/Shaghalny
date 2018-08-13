@@ -6,8 +6,8 @@ from django.urls import reverse_lazy, reverse
 from accounts.forms import SignUpUserForm, SignUpCompanyForm
 from accounts.models import User
 from django.contrib.auth import login
+from jobs.models import Job
 #  Create your views here.
-
 
 class HomePage(View):
     def get(self, request, *args, **kwargs):
@@ -16,8 +16,11 @@ class HomePage(View):
                 return redirect("company:dashboard")
             elif self.request.user.is_job_seeker:
                 return redirect("explore")
+            elif self.request.user.is_superuser:
+                return redirect("explore")
         else:
-            return render(request, 'index.html')
+            jobs = Job.objects.order_by('-date')
+            return render(request, 'index.html', {"jobs": jobs})
 
 
 class UserSignUp(CreateView):

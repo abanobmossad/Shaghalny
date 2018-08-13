@@ -2,8 +2,9 @@ import os
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-from accounts.models import Company
+from accounts.models import Company,UserProfile
 from django.utils import timezone, text
+
 # Create your models here.
 COMPANY_DEFAULT_IMAGE = os.path.join(
     settings.STATIC_DIR, 'images', 'company.png')
@@ -26,7 +27,7 @@ class Job(models.Model):
         ('ENGLISH', 'English'),
         ('FRENCH', 'French'),
     )
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=400)
     title = models.CharField(max_length=140)
     company = models.ForeignKey(
         Company, on_delete=models.DO_NOTHING, related_name="jobs")
@@ -52,6 +53,10 @@ class Job(models.Model):
     )
     experience_needed = models.IntegerField(default=1)
     open_vacancies = models.IntegerField(default=1)
+    applications = models.ManyToManyField(
+        UserProfile, related_name="application_users")
+    saved_jobs = models.ManyToManyField(
+        UserProfile, related_name="user_saved_jobs")
 
     def __str__(self):
         return text.slugify("{} --{} {} ---{}".format(self.title,

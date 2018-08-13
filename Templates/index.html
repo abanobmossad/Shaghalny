@@ -5,27 +5,33 @@
 
 <!-- start body -->
 {% block main_container %}
-<h3>Explore New Career Opportunities
+<h3 class=" col-12 col-sm-12 col-lg-9">
     <i class="fa fa-rocket"></i>
+    Explore New Career Opportunities
 </h3>
 <!-- display related jobs to the userprogile -->
 
-{% for job in related_jobs %}
-<div class="card  col-12 col-sm-10  related-jobs col-lg-12">
+{% for job in jobs %}
+<div class="card  col-12 col-sm-12  related-jobs col-lg-9">
     <div class="card-body user-home">
-        <p class="pull-right time">{{job.date|timesince}}
-            <i class="fa fa-clock-o"></i>
-        </p>
+        <img src="{{job.company.get_image}}" alt="company-image" class="pull-right" height="70" width="70">
         <h3>
             <a href="{% url 'jobs:job_details' slug=job.slug %}">{{job.title|title}}</a>
         </h3>
         <b>{{job.company.company_name|title}} - {{job.company.address|title}}</b>
-        <div class="safe-text">{{job.description|safe|truncatechars:'50'}}</div>
+        <p class="time">{{job.date|timesince}}
+            <i class="fa fa-clock-o"></i>
+        </p>
+
+        <div class="safe-text">{{job.description|safe|truncatechars:'150'}}</div>
         <hr style="border:0.4px solid #ddd">
 
-        <a href="#" class="btn pull-left user-btns">
-            <i class="fa fa-heart-o"></i> Save </a>
+        <form action="{% url 'jobs:save_job' slug=job.slug %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn pull-left user-btns">
 
+                <i class="fa fa-heart-o"></i> Save </button>
+        </form>
         <a href="#" class="btn pull-left user-btns">
             <i class="fa fa-share"></i> Share </a>
     </div>

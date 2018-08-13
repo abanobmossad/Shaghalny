@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+<!-- title -->
+{% block title %} SHAGHLNY {% endblock title %}
+
+<!-- start body -->
+{% block main_container %} {% if applications_jobs %}
+<h3 class="col-10 offset-1">Here all the applications you made</h3>
+{% else %}
+<h3 class="col-10 offset-1">Here all your saved jobs</h3>
+{% endif %}
+<!-- display related jobs to the userprogile -->
+
+{% for job in myjobs %}
+<div class="card  col-12 col-sm-12  related-jobs col-lg-10 offset-1">
+    <div class="card-body user-home">
+        <p class="pull-right time">{{job.date|timesince}}
+            <i class="fa fa-clock-o"></i>
+        </p>
+        <h3>
+            <a href="{% url 'jobs:job_details' slug=job.slug %}">{{job.title|title}}</a>
+        </h3>
+        <b>{{job.company.company_name|title}} - {{job.company.address|title}}</b>
+        <div class="safe-text">{{job.description|safe|truncatechars:'50'}}</div>
+    </div>
+</div>
+{% endfor %} {% endblock main_container %}
+
+<!-- end body -->

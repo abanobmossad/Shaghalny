@@ -1,14 +1,11 @@
-import os
 from django.db import models
-from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
-COMPANY_DEFAULT_IMAGE = os.path.join(
-    settings.STATIC_DIR, 'images', 'company.png')
+COMPANY_DEFAULT_IMAGE = static('images/company.png')
 
-USER_DEFAULT_IMAGE = os.path.join(
-    settings.STATIC_DIR, 'images', 'user.png')
+USER_DEFAULT_IMAGE = static('images/user.png')
 
 
 class User(AbstractUser):
@@ -25,6 +22,12 @@ class Company(models.Model):
     industry = models.CharField(max_length=140)
     image = models.ImageField(upload_to="company_images",
                               default=COMPANY_DEFAULT_IMAGE, blank=True, null=True)
+
+    def get_image(self):
+        if not self.image:
+            return COMPANY_DEFAULT_IMAGE
+        else:
+            return self.image
 
     def __str__(self):
         return self.company_name
@@ -73,6 +76,12 @@ class UserProfile(models.Model):
     experience = models.IntegerField(default=1)
     image = models.ImageField(upload_to="users_images",
                               default=USER_DEFAULT_IMAGE, blank=True, null=True)
+
+    def get_image(self):
+        if not self.image:
+            return USER_DEFAULT_IMAGE
+        else:
+            return self.image
 
     def __str__(self):
         return self.user.username

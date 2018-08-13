@@ -3,13 +3,19 @@ from jobs.models import Job
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy, reverse
 from company.forms import JobForm
-# Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+REDIRECT_FIELD_NAME = 'index.html'
+LOGIN_URL = reverse_lazy('login')
 
 
-class CreateJob(CreateView):
+class CreateJob(CreateView, LoginRequiredMixin):
+    login_url = LOGIN_URL
+    redirect_field_name = REDIRECT_FIELD_NAME
+
     model = Job
     form_class = JobForm
-    success_url = reverse_lazy('company:jobs')
+    success_url = reverse_lazy('company:myjobs')
     template_name = 'company/new_job.html'
 
     def form_valid(self, form):
@@ -17,10 +23,13 @@ class CreateJob(CreateView):
         return super().form_valid(form)
 
 
-class UpdateJob(UpdateView):
+class UpdateJob(UpdateView, LoginRequiredMixin):
+    login_url = LOGIN_URL
+    redirect_field_name = REDIRECT_FIELD_NAME
+
     model = Job
     form_class = JobForm
-    success_url = reverse_lazy('company:jobs')
+    success_url = reverse_lazy('company:myjobs')
     template_name = 'company/new_job.html'
 
     def get(self, request, *args, **kwargs):
@@ -44,12 +53,24 @@ def delete_job(request, pk):
         return redirect("index")
 
 
-class Dashboard(ListView):
+class Dashboard(ListView, LoginRequiredMixin):
+    login_url = LOGIN_URL
+    redirect_field_name = REDIRECT_FIELD_NAME
+
     model = Job
     template_name = 'company/dashboard.html'
+    context_object_name = 'jobs'
+
+    def get_queryset(self):
+        jobs = Job.objects.filter(
+            applications__isnull=False, company=self.request.user.company)
+        return jobs
 
 
-class CompanyJobs(ListView):
+class CompanyJobs(ListView, LoginRequiredMixin):
+    login_url = LOGIN_URL
+    redirect_field_name = REDIRECT_FIELD_NAME
+
     model = Job
     context_object_name = 'company_jobs'
     template_name = 'company/company_jobs.html'

@@ -6,7 +6,7 @@ from django.utils.text import slugify
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ('company', 'date', 'slug')
+        exclude = ('company', 'date', 'slug', 'applications', 'saved_jobs')
 
         widgets = {
             'description': forms.Textarea(),

@@ -27,7 +27,7 @@ urlpatterns = [
     path("accounts/", include('accounts.urls'), name="accounts"),
     path("employer/", include('company.urls'), name="employer"),
     path("explore/", jobs_views.RelatedJobList.as_view(), name="explore"),
-    path("jobs/", include('jobs.urls'), name="jobs"),
+    path("jobs/", include('jobs.urls')),
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout,
          name='logout', kwargs={'next_page': '/'}),
