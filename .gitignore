@@ -8,6 +8,8 @@
 
 Media 
 db.sqlite3
+.vscode 
+
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
