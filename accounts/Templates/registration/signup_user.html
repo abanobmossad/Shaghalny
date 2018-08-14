@@ -3,15 +3,27 @@
 {% block title %} SignUp {% endblock title %}
 
 <!-- start body -->
-{% block main_container %}
+{% block main_container %} {% if form.instance.id %}
+<div class="signup-text col-lg-10 offset-1">
+    <h4>{{user.username}} Update your profile</h4>
+</div>
+{% else %}
 <div class="signup-text col-lg-10 offset-1">
     <h4>Join Shaghalny to have the dream's job</h4>
 </div>
+{% endif %}
+
+<br>
 <div class="col-lg-10 offset-1 signup">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %} {% bootstrap_form form %}
-<input type="submit" value="SignUp" class="form-control btn-info">
-    </form>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %} {% bootstrap_form form %} {% if form.instance.id %}
+                <input type="submit" value="Save Changes" class="form-control btn-info"> {% else %}
+                <input type="submit" value="Sign Up " class="form-control btn-info"> {%endif%}
+            </form>
+        </div>
+    </div>
 </div>
-{% endblock main_container %}
+<br> {% endblock main_container %}
 <!-- end body -->

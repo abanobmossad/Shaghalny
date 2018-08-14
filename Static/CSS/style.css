@@ -7,6 +7,14 @@ body {
     background-color: #fafafb
 }
 
+/* start sign up */
+
+.help-block {
+    display: none;
+}
+
+/* end sign up */
+
 /* start navbar */
 
 nav {
@@ -178,12 +186,14 @@ table>tbody>tr>td>span {
     color: #555555;
     font-size: 14px;
 }
+
 .related-jobs li {
     list-style-type: none;
     margin-left: 10px;
 }
 
-.related-jobs>li a{
+.related-jobs>li a {
     text-decoration: none;
 }
+
 /* end job details */

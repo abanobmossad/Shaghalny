@@ -4,14 +4,22 @@
 
 <!-- start body -->
 {% block main_container %}
-<div class="signup-text col-lg-10 offset-1">
-    <h4>Login to Shaghalny</h4>
+<div class="d-flex justify-content-lg-center">
+    <h4>Login For Your Account</h4>
 </div>
-<div class="col-lg-10 offset-1 ">
-    <form method="post">
-        {% csrf_token %} {% bootstrap_form form %}
-        <input type="submit" value="login" class="form-control btn btn-primary">
-    </form>
+<br>
+<div class="d-flex justify-content-lg-center">
+    <div class="card col-lg-7 col-12 col-md-12">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %} {% bootstrap_form form %}
+                <input type="submit" value="log In" class="form-control btn btn-primary">
+            </form>
+            <br> Need an Account ?
+            <a href="{% url 'accounts:signup_company' %}">Employer!</a> Or 
+            <a href="{% url 'accounts:signup_job_seeker' %}">Sign Up</a>
+        </div>
+    </div>
 </div>
 {% endblock main_container %}
 <!-- end body -->

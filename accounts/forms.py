@@ -24,25 +24,36 @@ class SignUpUserForm(UserCreationForm):
 
     career_levele = forms.ChoiceField(
         choices=CAREER_LIVEL_CHOICES,
+        label="Whate is your current career level ?"
     )
     job_type = forms.ChoiceField(
         choices=JOB_TYPE_CHOICES,
+        label="Whate is the job type you searching for ?"
+
     )
     languages = forms.ChoiceField(
         choices=LANGUAGES_CHOICES,
+        label="Whate languages do you have ?"
+
     )
 
-
-    education = forms.CharField()
+    education = forms.CharField(label="What is your education ?")
     skills = forms.CharField(
-        widget=forms.Textarea)
-    salary = forms.IntegerField()
-    experience = forms.IntegerField()
-    image = forms.ImageField(required=False)
+        widget=forms.Textarea,label="Write down all your skills you have " )
+    salary = forms.IntegerField(label="What salary you expect you will have ?")
+    experience = forms.IntegerField(label="How many experience do you have ?")
+    image = forms.ImageField(
+        required=False, label="Enter a recent image of You")
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = User
-
+        fields = ['username','email','password1','password2']
+        labels={
+            'username':"Enter your user name (the viable name)",
+            'password':"Repeate the password ",
+            'password1': "Enter a powerful password",
+        }
+       
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -87,3 +98,10 @@ class SignUpCompanyForm(UserCreationForm):
             image=self.cleaned_data.get('image'))
 
         return user
+
+
+class UpdateUserForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user',)
+        

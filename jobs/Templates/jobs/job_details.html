@@ -17,9 +17,22 @@
                     <h6>{{job.company}} - {{job.company.address}}</h6>
                     <p class="time">Posted {{job.date|timesince}} ago</p>
                     <hr>
-                    <form action="#" method="POST" class="form-btn">
+                    <!-- show apply button to loged in users -->
+
+                    {% if user.is_authenticated %} {% if job not in applied_jobs %}
+                    <form action="{% url 'jobs:apply_job' slug=job.slug %}" method="POST" class="form-btn apply_form">
+                        {% csrf_token %}
                         <input type="submit" value="Apply For Job " class="btn btn-info">
                     </form>
+                    {% else %}
+                    <div class="btn btn-success">You Applied To This Job</div>
+                    {% endif %}
+                    <!-- tell the user to login -->
+                    {% else %}
+                    <small><i>Login to apply on this job</i></small>
+                    {% endif %}
+
+
                     <p class="pull-right job-application-count">
                         <span>{{job.applications.count}}</span> Application for
                         <strong>{{job.open_vacancies}}</strong> open position </p>

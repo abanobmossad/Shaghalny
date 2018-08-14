@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-
+{% extends "base.html" %} {% load static %}
 <!-- title -->
 {% block title %} SHAGHLNY {% endblock title %}
 
@@ -11,6 +10,7 @@
 {% endif %}
 <!-- display related jobs to the userprogile -->
 
+<!-- display related user saved or applications -->
 {% for job in myjobs %}
 <div class="card  col-12 col-sm-12  related-jobs col-lg-10 offset-1">
     <div class="card-body user-home">
@@ -22,8 +22,32 @@
         </h3>
         <b>{{job.company.company_name|title}} - {{job.company.address|title}}</b>
         <div class="safe-text">{{job.description|safe|truncatechars:'50'}}</div>
+
+        {% if saved %}
+        <hr style="border:0.4px solid #ddd">
+
+        <form action="{% url 'jobs:un_save_job' slug=job.slug %}" class="un_save_form" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn pull-left user-btns">UnSave </button>
+        </form>
+        {% endif %}
+
     </div>
 </div>
-{% endfor %} {% endblock main_container %}
-
+{% endfor %} {% if not myjobs and saved%}
+<!-- display saved image placeholder  -->
+<div class="d-flex justify-content-lg-center">
+    <img src="{% static 'images/saved.svg' %}" alt="no saved jobs">
+</div>
+<div class="d-flex justify-content-lg-center">
+    <p style="margin-top: 30px">
+        <b style="margin: 0 140px">No saved opportunities yet!</b>
+        <br> Not ready to apply? Save the opportunities you are interested in.</p>
+</div>
+<div class="d-flex justify-content-lg-center">
+    <a href="{% url 'explore' %} " class="btn btn-primary ">Explore</a>
+</div>
+{% endif %}
 <!-- end body -->
+
+{% endblock main_container %}

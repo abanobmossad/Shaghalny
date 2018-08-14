@@ -11,7 +11,7 @@
 </h3>
 <!-- display related jobs to the userprogile -->
 
-{% for job in jobs %}
+{% for job in jobs %} {% if job not in saved_jobs or not user.is_authenticated%}
 <div class="card  col-12 col-sm-12  related-jobs col-lg-9">
     <div class="card-body user-home">
         <img src="{{job.company.get_image}}" alt="company-image" class="pull-right" height="70" width="70">
@@ -25,17 +25,25 @@
 
         <div class="safe-text">{{job.description|safe|truncatechars:'150'}}</div>
         <hr style="border:0.4px solid #ddd">
+        <!-- show save feature to login users -->
+        {% if user.is_authenticated %}
 
-        <form action="{% url 'jobs:save_job' slug=job.slug %}" method="post">
+        <form action="{% url 'jobs:save_job' slug=job.slug %}" class="save_form" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn pull-left user-btns">
+            <button type="submit" class="btn btn-light pull-left user-btns">
 
-                <i class="fa fa-heart-o"></i> Save </button>
+                <i class="fa fa-bookmark-o save-heart"></i> Save </button>
         </form>
         <a href="#" class="btn pull-left user-btns">
             <i class="fa fa-share"></i> Share </a>
+        {% else %}
+        <small>
+            <i>Login to enjoy save this job </i>
+        </small>
+        {% endif %}
+
     </div>
 </div>
-{% endfor %} {% endblock main_container %}
+{% endif %} {% endfor %} {% endblock main_container %}
 
 <!-- end body -->

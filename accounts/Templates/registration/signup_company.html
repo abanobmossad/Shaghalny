@@ -7,11 +7,17 @@
 <div class="signup-text col-lg-10 offset-1">
     <h4>Join Shaghalny as a rockstars hunters</h4>
 </div>
+<br>
 <div class="col-lg-10 offset-1 signup">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %} {% bootstrap_form form %}
-        <input type="submit" value="SignUp" class="form-control btn-success">
-    </form>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %} {% bootstrap_form form %}
+                <input type="submit" value="Sign Up" class="form-control btn-success">
+            </form>
+        </div>
+    </div>
 </div>
+<br>
 {% endblock main_container %}
 <!-- end body -->

@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
-from django.views.generic import CreateView, ListView, TemplateView, View
+from django.views.generic import CreateView, ListView, TemplateView, View, UpdateView
 from django.urls import reverse_lazy, reverse
-from accounts.forms import SignUpUserForm, SignUpCompanyForm
-from accounts.models import User
+from accounts.forms import SignUpUserForm, SignUpCompanyForm, UpdateUserForm
+from accounts.models import User, UserProfile
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from jobs.models import Job
-#  Create your views here.
+
+REDIRECT_FIELD_NAME = 'index.html'
+LOGIN_URL = reverse_lazy('login')
+
 
 class HomePage(View):
     def get(self, request, *args, **kwargs):
@@ -43,3 +47,17 @@ class CompanySignUp(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('index')
+
+
+class UpdateUserProfileView(UpdateView,LoginRequiredMixin):
+
+    login_url = LOGIN_URL
+    redirect_field_name = REDIRECT_FIELD_NAME
+
+    model = UserProfile
+    form_class = UpdateUserForm
+    success_url = reverse_lazy('index')
+    template_name = 'registration/signup_user.html'
+
+    def get_object(self):
+        return self.request.user.userprofile 

@@ -27,7 +27,7 @@ class Company(models.Model):
         if not self.image:
             return COMPANY_DEFAULT_IMAGE
         else:
-            return self.image
+            return self.image.url
 
     def __str__(self):
         return self.company_name
@@ -81,7 +81,7 @@ class UserProfile(models.Model):
         if not self.image:
             return USER_DEFAULT_IMAGE
         else:
-            return self.image
+            return self.image.url
 
     def __str__(self):
         return self.user.username
